@@ -52,7 +52,7 @@ Future<String> getWikipediaArticle(String articleTitle) async{
   );
   final response = await http.get(url); //this send the hhtp request and waits for the server to respond. The response is stored in the variable response.
   if(response.statusCode == 200){ //200 means that the request was successful and the server returned the requested data. If the status code is 200, we can access the content of the article through response.body, which contains the body of the HTTP response as a string.
-    return response.body;
+    return response.body; //
   } 
 
   return "Error: Failed to fecth article: $articleTitle .Status code: ${response.statusCode}";
