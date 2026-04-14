@@ -10,16 +10,44 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       home: Scaffold(
-        body: Center(
-          child: Title("A", HitType.partial))),
+        appBar: AppBar(
+          title: Align(alignment: Alignment.centerLeft, child: Text('Birdle')),
+        ),
+        body: Center(child: GamePage()),
+      ),
     );
   }
 }
 
-class Title extends StatelessWidget {
-  const Title(this.letter, this.hitType, {super.key});
+class GamePage extends StatelessWidget{
+  GamePage({super.key});
+
+  final Game _game = Game();
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Padding(padding: const EdgeInsets.all(8.0),
+    child: Column(spacing: 5.0, 
+    children: [
+      for(var guess in _game.guesses)
+        Row(
+          spacing: 5.0,
+          children: [
+            for(var letter in guess) Tile(letter.char, letter.type),
+          ],
+        ),
+    ]),
+    );
+  }
+}
+
+
+
+class Tile extends StatelessWidget {
+  const Tile(this.letter, this.hitType, {super.key});
   final String letter;
   final HitType hitType;
 
@@ -34,7 +62,7 @@ class Title extends StatelessWidget {
           HitType.hit => Colors.green,
           HitType.partial => Colors.yellow,
           HitType.miss => Colors.grey,
-          _=> Colors.white,
+          _ => Colors.white,
         },
       ),
       child: Center(
@@ -44,6 +72,5 @@ class Title extends StatelessWidget {
         ),
       ),
     );
-
   }
 }
